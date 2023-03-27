@@ -47,29 +47,49 @@ namespace Vjezba_Petra_Vida
         public void Average()
         {
             Console.Clear();
-            List<int> listOfGrades = new List<int>();
+            Console.WriteLine("Enter grade for student: ");
 
+            List<int> listOfGrades = new List<int>();
+            int numberOfGrades = 0;
             string exit = "0";
+
             do
             {
-                Console.WriteLine("Enter grades for student: ");
-
                 int grade = Int32.Parse(Console.ReadLine());
+
                 listOfGrades.Add(grade);
-                Console.WriteLine("To finish press 0 or press any other key to continue."); 
+                Console.WriteLine("To finish press 0, or press any other key to continue.");
+                numberOfGrades++;
                 exit = Console.ReadLine();
-                int sum = listOfGrades.Sum();
-                int avarage = sum / grade;
             }
             while (exit != "0");
-            foreach (int grade in listOfGrades)
-            {
-                
-            }
-
+            decimal sum = listOfGrades.Sum();
+            decimal avarage = sum/numberOfGrades;
+            Console.WriteLine($"Avarage is: {Math.Ceiling(avarage)}");
 
             Console.ReadLine();
         }
+        public void LastDigits()
+        {
+            Console.Clear();
+            Console.WriteLine("Enter some numbers: ");
+            List<int> listOfNumbers = new List<int>();
+            List<int> lastOne = new List<int>();
+            int randomNumber = Int32.Parse(Console.ReadLine());
+            while (randomNumber != 0)
+            {
+                listOfNumbers.Add(randomNumber);
+                Console.WriteLine("To finish press 0, or enter one another number.");
+                int lastDigit = randomNumber % 10;
+                lastOne.Add(lastDigit);
+                randomNumber = Int32.Parse(Console.ReadLine());
 
+            }
+           
+            int sum = lastOne.Sum();
+            Console.WriteLine($"Sum of last digits are {sum}.");
+
+
+        }
     }
 }

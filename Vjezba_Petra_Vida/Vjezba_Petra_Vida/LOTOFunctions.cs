@@ -1,7 +1,9 @@
 ﻿using PdfSharp.Drawing;
+using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,40 +13,56 @@ namespace Vjezba_Petra_Vida
 {
     public class LOTOFunctions
     {
-        public void RendomNumber()
+        public int[] RandomNumber()
         {
             Console.Clear();
+            int[] arrayOfRandoms = new int[7];
             Random randomNumber = new Random();
             for (int i = 0;  i < 7; i++) 
             {
-                Console.WriteLine(randomNumber.Next(45));
+                int random = randomNumber.Next(45); ;
+                while (arrayOfRandoms.Contains(random)) {
+                    random = randomNumber.Next(45);
+                }
+                arrayOfRandoms[i] = random;
+
+                Console.WriteLine(arrayOfRandoms[i]);
             }
             Console.ReadLine();
+            return arrayOfRandoms;
         }
-        //public void PDFFile()
-        //{
-        //    string novadatoteka = ($"C:\\Users\\donii\\OneDrive\\Radna površina\\petramono\\WebApiCSharp\\Ponavljanje ConsoleAplication\\");
-        //    if (!Directory.Exists(pdfdatoteka))
-        //    {
-        //        Directory.CreateDirectory(pdfdatoteka);
-        //    }
-        //    PdfDocument pdfFile = new PdfDocument();
-        //    PdfPage pdfPage = new PdfPage();
-        //    pdfFile.AddPage(pdfPage);
-        //    XGraphics graph = XGraphics.FromPdfPage(pdfPage);
-        //    XFont latters = new XFont("Comics", 25);
-        //    XPoint place = new XPoint(35, 35);
-        //    LOTOFunctions numberForPDF = new LOTOFunctions();
-        //    graph.DrawString($"There is your numbers {numberForPDF.RendomNumber()}", latters, XBrushes.Black, place);
-        //    //graph.DrawString("Trying to make my first PDF document.", latters, XBrushes.BlueViolet, place);
-        //    //string fileName = "MyFirstPDFFile.pdf";
-        //    //myFile.Save($"{novadatoteka}\\{fileName}");
-        //    //Process.Start(fileName);
+        public void PDFFile()
+        {
+            string novadatoteka = ($"C:\\Users\\donii\\OneDrive\\Dokumenti\\RepeatingConsoleAplication\\Vjezba_Petra_Vida");
+            if (!Directory.Exists(novadatoteka))
+            {
+                Directory.CreateDirectory(novadatoteka);
+            }
+            PdfDocument pdfFile = new PdfDocument();
+            PdfPage pdfPage = new PdfPage();
+            pdfFile.AddPage(pdfPage);
+            Random random = new Random();
+            XGraphics graph = XGraphics.FromPdfPage(pdfPage);
+            XFont latters = new XFont("Comics", 15);
 
-        //    Console.ReadLine();
+            //XRect rec = new XRect(35, 35, pdfPage.Width - 100, pdfPage.Height - 100);
+            XTextFormatter form = new XTextFormatter(graph);
 
-        //    string txtFile = File.ReadAllText($"C:\\Users\\donii\\OneDrive\\Radna površina\\petramono\\textzaprobu.txt");
+            //LOTOFunctions numberForPDF = new LOTOFunctions();
+            int[] pdfNumbers = RandomNumber();
+            int x = 50;
+            foreach (int number in pdfNumbers) {
+                x = x + 50;
+                XPoint place = new XPoint(x, 50);
+                graph.DrawString($"{number}", latters, XBrushes.Black, place);
+                 }
+            string fileName = "MyPDFFile.pdf";
+            pdfFile.Save($"{novadatoteka}\\{fileName}");
+            Process.Start(fileName);
 
-        //}
+            Console.ReadLine();
+
+
+        }
     }
 }

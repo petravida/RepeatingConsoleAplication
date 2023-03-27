@@ -37,16 +37,22 @@ namespace Vjezba_Petra_Vida
                     thirdCase.Average();
                     break;
                 case 4:
+                    MathematicalFunctions fouthCase = new MathematicalFunctions();
+                    fouthCase.LastDigits();
                     break;
                 case 5:
                     LOTOFunctions fifthCase = new LOTOFunctions();
-                    fifthCase.RendomNumber();
+                    fifthCase.RandomNumber();
                     break;
                 case 6:
                     break;
                 case 7:
+                    Person seventhCase = new Person();
+                    seventhCase.EnterPerson();
                     break;
                 case 8:
+                    LOTOFunctions eighthCase = new LOTOFunctions();
+                    eighthCase.PDFFile();
                     break;
                 default:
                     break;
